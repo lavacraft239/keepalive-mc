@@ -16,5 +16,5 @@ jobs:
 
       - name: TCP Ping al server
         run: |
-          echo "Haciendo ping TCP a 51.81.59.76:25565"
-          nc -z -v 51.81.59.76 25565 || echo "ERROR al conectar"
+          echo "Haciendo ping TCP a 51.81.59.76:20030"
+          nc -z -v 51.81.59.76 20030 || echo "ERROR al conectar"

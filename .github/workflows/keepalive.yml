@@ -1,9 +1,7 @@
 name: KeepAlive Classicube
 
 on:
-  schedule:
-    - cron: "*/10 * * * *"  # cada 10 minutos
-  workflow_dispatch:        # permite ejecutarlo manualmente
+  workflow_dispatch:   # permite ejecutarlo manualmente
 
 jobs:
   ping:
@@ -14,7 +12,11 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y netcat-openbsd
 
-      - name: TCP Ping al server
+      - name: Ping TCP y esperar 10 minutos
         run: |
-          echo "Haciendo ping TCP a 51.81.59.76:20030"
-          nc -z -v 51.81.59.76 20030 || echo "ERROR al conectar"
+          while true; do
+              echo "$(date): Haciendo ping TCP a 51.81.59.76:20030"
+              nc -z -v 51.81.59.76 20030 && echo "$(date): Conectado ✅" || echo "$(date): ERROR ❌"
+              echo "Esperando 10 minutos..."
+              sleep 600
+          done

@@ -2,17 +2,19 @@ name: KeepAlive Classicube
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # cada 10 minutos
-  workflow_dispatch:          # permite ejecutarlo manualmente
+    - cron: "*/10 * * * *"  # cada 10 minutos
+  workflow_dispatch:        # permite ejecutarlo manualmente
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
       - name: Instalar netcat
-        run: sudo apt-get update && sudo apt-get install -y netcat
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y netcat-openbsd
 
       - name: TCP Ping al server
         run: |
           echo "Haciendo ping TCP a 51.81.59.76:25565"
-          nc -z -v 51.81.59.76 25565
+          nc -z -v 51.81.59.76 25565 || echo "ERROR al conectar"

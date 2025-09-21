@@ -9,6 +9,9 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - name: Instalar netcat
+        run: sudo apt-get update && sudo apt-get install -y netcat
+
       - name: TCP Ping al server
         run: |
           echo "Haciendo ping TCP a 51.81.59.76:25565"
